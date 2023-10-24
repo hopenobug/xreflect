@@ -205,6 +205,9 @@ func structFields(obj interface{}, flatten bool) ([]reflect.StructField, error) 
 			if err != nil {
 				return nil, fmt.Errorf("cannot get fields in %s: %w", field.Name, err)
 			}
+			for i, subField := range subFields {
+				subFields[i].Index = append(field.Index, subField.Index...)
+			}
 			res = append(res, subFields...)
 		} else {
 			res = append(res, field)
